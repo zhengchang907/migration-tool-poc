@@ -515,7 +515,7 @@
                 "autoUpgradeMinorVersion": true,
                 "settings": {
                     "fileUris": [
-                        "[uri(parameters('_artifactsLocationClusterTemplate'), concat('../scripts/', variables('name_scriptFile'), parameters('_artifactsLocationSasToken')))]"
+                        "[uri(parameters('_artifactsLocationClusterTemplate'), concat('scripts/', variables('name_scriptFile'), parameters('_artifactsLocationSasToken')))]"
                     ]
                 },
                 "protectedSettings": {
