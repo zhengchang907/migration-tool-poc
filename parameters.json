@@ -1,0 +1,43 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+      "adminUsername": {
+        "value": "weblogic"
+      },
+      "adminPasswordOrKey": {
+        "value": "Secret123456"
+      },
+      "dnsLabelPrefix": {
+        "value": "wls"
+      },
+      "wlsDomainName": {
+        "value": "weblogic"
+      },
+      "wlsUserName": {
+        "value": "weblogic"
+      },
+      "wlsPassword": {
+        "value": "Secret123456"
+      },
+      "numberOfInstances": {
+        "value": 3
+      },
+      "adminVMName": {
+        "value": "weblogic"
+      },
+      "vmSizeSelect": {
+        "value": "Standard_A3"
+      },
+      "location": {
+        "value": "eastus"
+      },
+      "skuUrnVersion": {
+        "value": "owls-141100-jdk11-ol76;Oracle:weblogic-141100-jdk11-ol76:owls-141100-jdk11-ol7;latest"
+      },
+      "_artifactsLocation": {
+        "value": "https://raw.githubusercontent.com/zhengchang907/migration-tool-poc/main/"
+      }
+    }
+  }
+  
