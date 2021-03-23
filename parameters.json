@@ -12,7 +12,7 @@
         "value": "wls"
       },
       "wlsDomainName": {
-        "value": "weblogic"
+        "value": "wlsd"
       },
       "wlsUserName": {
         "value": "weblogic"
@@ -21,10 +21,7 @@
         "value": "Secret123456"
       },
       "numberOfInstances": {
-        "value": 3
-      },
-      "adminVMName": {
-        "value": "weblogic"
+        "value": 2
       },
       "vmSizeSelect": {
         "value": "Standard_A3"
