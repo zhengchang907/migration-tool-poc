@@ -494,144 +494,144 @@
                 "publisher": "[variables('const_imagePublisher')]",
                 "product": "[variables('const_imageOffer')]"
             }
-        },
-        {
-            "type": "Microsoft.Compute/virtualMachines/extensions",
-            "apiVersion": "2020-06-01",
-            "name": "[if(equals(copyIndex(),0),concat(parameters('adminVMName'),'/newuserscript'),concat(variables('const_managedVMPrefix'), copyIndex(),'/newuserscript'))]",
-            "location": "[parameters('location')]",
-            "copy": {
-                "name": "virtualMachineExtensionLoop",
-                "count": "[parameters('numberOfInstances')]"
-            },
-            "dependsOn": [
-                "[resourceId('Microsoft.Compute/virtualMachines/',parameters('adminVMName'))]",
-                "virtualMachineLoop"
-            ],
-            "properties": {
-                "publisher": "Microsoft.Azure.Extensions",
-                "type": "CustomScript",
-                "typeHandlerVersion": "2.0",
-                "autoUpgradeMinorVersion": true,
-                "settings": {
-                    "fileUris": [
-                        "[uri(parameters('_artifactsLocationClusterTemplate'), concat('scripts/', variables('name_scriptFile'), parameters('_artifactsLocationSasToken')))]"
-                    ]
-                },
-                "protectedSettings": {
-                    "commandToExecute": "[concat('sh',' ',variables('name_scriptFile'),' ',parameters('wlsDomainName'),' ',parameters('wlsUserName'),' ',parameters('wlsPassword'),' ',if(equals(copyIndex(),0),'admin',concat(parameters('managedServerPrefix'), copyIndex())),' ',parameters('adminVMName'),' ',variables('const_wlsHome'),' ',variables('name_storageAccount'),' ',listKeys(resourceId('Microsoft.Storage/storageAccounts', variables('name_storageAccount')), '2019-06-01').keys[0].value,' ',variables('const_mountPointPath'),' ',string(parameters('enableHTTPAdminListenPort')),' ','false')]"
-                }
-            }
-        },
-        {
-            "type": "Microsoft.Resources/deployments",
-            "apiVersion": "2020-06-01",
-            "name": "0d9bfe65-0950-54b9-b9d4-a28224b27748",
-            "dependsOn": [
-                "virtualMachineExtensionLoop"
-            ],
-            "properties": {
-                "mode": "Incremental",
-                "template": {
-                    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
-                    "contentVersion": "1.0.0.0",
-                    "resources": [
-                    ]
-                }
-            }
-        },
-        {
-            "type": "Microsoft.Resources/deployments",
-            "apiVersion": "2020-06-01",
-            "name": "caa3ea2b-cdec-55ee-8510-854ed10d7ebe",
-
-            "condition": "[if(contains(variables('name_linuxImageOfferSKU'), 'owls-122130-jdk8-ol74'), bool('true'), bool('false'))]",
-            "dependsOn": [
-                "virtualMachineExtensionLoop"
-            ],
-            "properties": {
-                "mode": "Incremental",
-                "template": {
-                    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
-                    "contentVersion": "1.0.0.0",
-                    "resources": [
-                    ]
-                }
-            }
-        },
-        {
-            "type": "Microsoft.Resources/deployments",
-            "apiVersion": "2020-06-01",
-            "name": "bf1d0f1a-cb9a-5453-bf70-42b4efe8c15e",
-            "condition": "[if(contains(variables('name_linuxImageOfferSKU'), 'from.owls-122130-jdk8-ol73'), bool('true'), bool('false'))]",
-            "dependsOn": [
-                "virtualMachineExtensionLoop"
-            ],
-            "properties": {
-                "mode": "Incremental",
-                "template": {
-                    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
-                    "contentVersion": "1.0.0.0",
-                    "resources": [
-                    ]
-                }
-            }
-        },
-        {
-            "type": "Microsoft.Resources/deployments",
-            "apiVersion": "2020-06-01",
-            "name": "bde756bb-ce96-54d5-a478-04d9bd87e9db",
-
-            "condition": "[if(contains(variables('name_linuxImageOfferSKU'), 'from.owls-122140-jdk8-ol76'), bool('true'), bool('false'))]",
-            "dependsOn": [
-                "virtualMachineExtensionLoop"
-            ],
-            "properties": {
-                "mode": "Incremental",
-                "template": {
-                    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
-                    "contentVersion": "1.0.0.0",
-                    "resources": [
-                    ]
-                }
-            }
-        },
-        {
-            "type": "Microsoft.Resources/deployments",
-            "apiVersion": "2020-06-01",
-            "name": "b6f00a34-1478-5a10-9a84-49c4051b57b8",
-            "condition": "[if(contains(variables('name_linuxImageOfferSKU'), 'owls-141100-jdk8-ol76'), bool('true'), bool('false'))]",
-            "dependsOn": [
-                "virtualMachineExtensionLoop"
-            ],
-            "properties": {
-                "mode": "Incremental",
-                "template": {
-                    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
-                    "contentVersion": "1.0.0.0",
-                    "resources": [
-                    ]
-                }
-            }
-        },
-        {
-            "type": "Microsoft.Resources/deployments",
-            "apiVersion": "2020-06-01",
-            "name": "afc8f9c5-8c5d-5d1b-ab4d-3116ca908bfd",
-            "condition": "[if(contains(variables('name_linuxImageOfferSKU'), 'owls-141100-jdk11-ol76'), bool('true'), bool('false'))]",
-            "dependsOn": [
-                "virtualMachineExtensionLoop"
-            ],
-            "properties": {
-                "mode": "Incremental",
-                "template": {
-                    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
-                    "contentVersion": "1.0.0.0",
-                    "resources": [
-                    ]
-                }
-            }
         }
+        // {
+        //     "type": "Microsoft.Compute/virtualMachines/extensions",
+        //     "apiVersion": "2020-06-01",
+        //     "name": "[if(equals(copyIndex(),0),concat(parameters('adminVMName'),'/newuserscript'),concat(variables('const_managedVMPrefix'), copyIndex(),'/newuserscript'))]",
+        //     "location": "[parameters('location')]",
+        //     "copy": {
+        //         "name": "virtualMachineExtensionLoop",
+        //         "count": "[parameters('numberOfInstances')]"
+        //     },
+        //     "dependsOn": [
+        //         "[resourceId('Microsoft.Compute/virtualMachines/',parameters('adminVMName'))]",
+        //         "virtualMachineLoop"
+        //     ],
+        //     "properties": {
+        //         "publisher": "Microsoft.Azure.Extensions",
+        //         "type": "CustomScript",
+        //         "typeHandlerVersion": "2.0",
+        //         "autoUpgradeMinorVersion": true,
+        //         "settings": {
+        //             "fileUris": [
+        //                 "[uri(parameters('_artifactsLocationClusterTemplate'), concat('scripts/', variables('name_scriptFile'), parameters('_artifactsLocationSasToken')))]"
+        //             ]
+        //         },
+        //         "protectedSettings": {
+        //             "commandToExecute": "[concat('sh',' ',variables('name_scriptFile'),' ',parameters('wlsDomainName'),' ',parameters('wlsUserName'),' ',parameters('wlsPassword'),' ',if(equals(copyIndex(),0),'admin',concat(parameters('managedServerPrefix'), copyIndex())),' ',parameters('adminVMName'),' ',variables('const_wlsHome'),' ',variables('name_storageAccount'),' ',listKeys(resourceId('Microsoft.Storage/storageAccounts', variables('name_storageAccount')), '2019-06-01').keys[0].value,' ',variables('const_mountPointPath'),' ',string(parameters('enableHTTPAdminListenPort')),' ','false')]"
+        //         }
+        //     }
+        // },
+        // {
+        //     "type": "Microsoft.Resources/deployments",
+        //     "apiVersion": "2020-06-01",
+        //     "name": "0d9bfe65-0950-54b9-b9d4-a28224b27748",
+        //     "dependsOn": [
+        //         "virtualMachineExtensionLoop"
+        //     ],
+        //     "properties": {
+        //         "mode": "Incremental",
+        //         "template": {
+        //             "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+        //             "contentVersion": "1.0.0.0",
+        //             "resources": [
+        //             ]
+        //         }
+        //     }
+        // },
+        // {
+        //     "type": "Microsoft.Resources/deployments",
+        //     "apiVersion": "2020-06-01",
+        //     "name": "caa3ea2b-cdec-55ee-8510-854ed10d7ebe",
+
+        //     "condition": "[if(contains(variables('name_linuxImageOfferSKU'), 'owls-122130-jdk8-ol74'), bool('true'), bool('false'))]",
+        //     "dependsOn": [
+        //         "virtualMachineExtensionLoop"
+        //     ],
+        //     "properties": {
+        //         "mode": "Incremental",
+        //         "template": {
+        //             "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+        //             "contentVersion": "1.0.0.0",
+        //             "resources": [
+        //             ]
+        //         }
+        //     }
+        // },
+        // {
+        //     "type": "Microsoft.Resources/deployments",
+        //     "apiVersion": "2020-06-01",
+        //     "name": "bf1d0f1a-cb9a-5453-bf70-42b4efe8c15e",
+        //     "condition": "[if(contains(variables('name_linuxImageOfferSKU'), 'from.owls-122130-jdk8-ol73'), bool('true'), bool('false'))]",
+        //     "dependsOn": [
+        //         "virtualMachineExtensionLoop"
+        //     ],
+        //     "properties": {
+        //         "mode": "Incremental",
+        //         "template": {
+        //             "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+        //             "contentVersion": "1.0.0.0",
+        //             "resources": [
+        //             ]
+        //         }
+        //     }
+        // },
+        // {
+        //     "type": "Microsoft.Resources/deployments",
+        //     "apiVersion": "2020-06-01",
+        //     "name": "bde756bb-ce96-54d5-a478-04d9bd87e9db",
+
+        //     "condition": "[if(contains(variables('name_linuxImageOfferSKU'), 'from.owls-122140-jdk8-ol76'), bool('true'), bool('false'))]",
+        //     "dependsOn": [
+        //         "virtualMachineExtensionLoop"
+        //     ],
+        //     "properties": {
+        //         "mode": "Incremental",
+        //         "template": {
+        //             "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+        //             "contentVersion": "1.0.0.0",
+        //             "resources": [
+        //             ]
+        //         }
+        //     }
+        // },
+        // {
+        //     "type": "Microsoft.Resources/deployments",
+        //     "apiVersion": "2020-06-01",
+        //     "name": "b6f00a34-1478-5a10-9a84-49c4051b57b8",
+        //     "condition": "[if(contains(variables('name_linuxImageOfferSKU'), 'owls-141100-jdk8-ol76'), bool('true'), bool('false'))]",
+        //     "dependsOn": [
+        //         "virtualMachineExtensionLoop"
+        //     ],
+        //     "properties": {
+        //         "mode": "Incremental",
+        //         "template": {
+        //             "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+        //             "contentVersion": "1.0.0.0",
+        //             "resources": [
+        //             ]
+        //         }
+        //     }
+        // },
+        // {
+        //     "type": "Microsoft.Resources/deployments",
+        //     "apiVersion": "2020-06-01",
+        //     "name": "afc8f9c5-8c5d-5d1b-ab4d-3116ca908bfd",
+        //     "condition": "[if(contains(variables('name_linuxImageOfferSKU'), 'owls-141100-jdk11-ol76'), bool('true'), bool('false'))]",
+        //     "dependsOn": [
+        //         "virtualMachineExtensionLoop"
+        //     ],
+        //     "properties": {
+        //         "mode": "Incremental",
+        //         "template": {
+        //             "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+        //             "contentVersion": "1.0.0.0",
+        //             "resources": [
+        //             ]
+        //         }
+        //     }
+        // }
     ],
     "outputs": {
         "_adminPublicIPId": {
